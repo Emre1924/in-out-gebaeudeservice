@@ -1,0 +1,5 @@
+import Link from 'next/link';
+import { ArrowUpRight, Phone } from 'lucide-react';
+import { site } from '@/lib/site';
+
+export function Cta({compact=false}:{compact?:boolean}) { return <section className={compact?'bg-[#eae5da] py-18':'bg-[#eae5da] py-22 lg:py-28'}><div className="container-site flex flex-col justify-between gap-8 md:flex-row md:items-end"><div><p className="eyebrow">Der nächste Schritt</p><h2 className="display mt-5 max-w-[720px] text-[clamp(38px,5vw,65px)]">Sprechen wir über Ihr Objekt.</h2><p className="mt-5 max-w-[610px] text-[16px] leading-7 text-muted">Ob einmaliger Einsatz oder laufende Betreuung: Beschreiben Sie uns kurz Ihren Bedarf. Wir melden uns für die nächsten Schritte.</p></div><div className="flex shrink-0 flex-col gap-3 sm:flex-row md:flex-col lg:flex-row"><Link href="/kontakt" className="button button-dark">Angebot anfordern <ArrowUpRight size={17}/></Link><a href={site.phoneHref} className="button button-light"><Phone size={16}/>Jetzt anrufen</a></div></div></section>; }

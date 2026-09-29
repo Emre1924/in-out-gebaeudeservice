@@ -1,0 +1,7 @@
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { ArrowUpRight, MapPin } from 'lucide-react';
+import { Cta } from '@/components/cta';
+
+export const metadata:Metadata={title:'Einsatzgebiet Dortmund & Umgebung',description:'In & Out Gebäudeservice betreut private und gewerbliche Objekte in Dortmund und Umgebung. Fragen Sie Ihren Standort direkt an.'};
+export default function Einsatzgebiet(){return <><section className="container-site grid gap-14 py-18 md:grid-cols-[1.2fr_.8fr] md:gap-20 md:py-25"><div><p className="eyebrow">Einsatzgebiet</p><h1 className="display mt-5 text-[clamp(48px,5.5vw,79px)]">In Dortmund zuhause. In der Umgebung für Sie da.</h1><p className="mt-7 max-w-[650px] text-[18px] leading-8 text-muted">Wir betreuen Immobilien in Dortmund und prüfen Anfragen aus dem Umland individuell. Nennen Sie uns den Standort Ihres Objekts – dann sagen wir Ihnen, ob und wie wir Sie unterstützen können.</p><Link href="/kontakt" className="button button-dark mt-9">Standort anfragen <ArrowUpRight size={17}/></Link></div><div className="flex min-h-[300px] flex-col justify-between bg-[#e5e4d8] p-8 md:p-10"><MapPin size={35} strokeWidth={1.4} className="text-green"/><div><span className="eyebrow">Unser Ausgangspunkt</span><p className="display mt-4 text-[48px]">Dortmund</p><p className="mt-3 text-sm leading-7 text-muted">Für private Haushalte, Gewerbeobjekte und Hausverwaltungen.</p></div></div></section><Cta compact/></>}

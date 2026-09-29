@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+:root { --ink:#252b27; --muted:#626963; --green:#2e4b3f; --green-dark:#213b31; --cream:#f7f5ef; --sand:#eae5da; --line:#dcd9d0; }
+@theme inline { --color-ink:var(--ink); --color-muted:var(--muted); --color-green:var(--green); --color-cream:var(--cream); --color-sand:var(--sand); }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body { margin:0; background:var(--cream); color:var(--ink); font-family:Arial, Helvetica, sans-serif; }
+::selection { background:#d9dfd2; color:var(--ink); }
+a, button, input, textarea, select { -webkit-tap-highlight-color:transparent; }
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible { outline:3px solid #a7ba9e; outline-offset:3px; }
+.container-site { width:min(100% - 40px, 1240px); margin-inline:auto; }
+.eyebrow { color:var(--green); text-transform:uppercase; letter-spacing:.18em; font-size:.72rem; font-weight:700; }
+.display { font-family:Georgia, 'Times New Roman', serif; font-weight:400; letter-spacing:-.047em; line-height:1.07; }
+.section-pad { padding-block:clamp(76px, 8vw, 132px); }
+.button { display:inline-flex; align-items:center; justify-content:center; gap:.7rem; min-height:51px; padding:0 23px; font-size:.9rem; font-weight:700; transition:background .2s,color .2s,transform .2s; }
+.button:hover { transform:translateY(-2px); }
+.button-dark { background:var(--green); color:white; }
+.button-dark:hover { background:var(--green-dark); }
+.button-light { border:1px solid var(--ink); color:var(--ink); }
+.button-light:hover { background:var(--ink); color:white; }
+.hairline { border-color:var(--line); }
+.service-row { transition:padding .2s,background .2s; }
+.service-row:hover { padding-inline:18px; background:#f0eee7; }
+.service-row:hover .service-arrow { transform:translate(3px,-3px); }
+.service-arrow { transition:transform .2s; }
+@media (max-width: 767px) { .container-site { width:min(100% - 32px, 1240px); } body { padding-bottom:65px; } .section-pad { padding-block:72px; } }
