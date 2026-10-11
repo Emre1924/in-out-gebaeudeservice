@@ -1,11 +1,13 @@
 /node_modules/
 /.next/
+/.next-dev/
 /out/
 /build/
 /coverage/
 /work/
 /outputs/
 /.vercel/
+/.netlify/
 
 .env*
 !.env.example
@@ -13,4 +15,7 @@
 next-env.d.ts
 *.tsbuildinfo
 *.log
+*.tmp
+*.bak
 .DS_Store
+Thumbs.db
