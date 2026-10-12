@@ -1,41 +1,91 @@
 # In & Out Gebäudeservice
 
-Next.js App Router, TypeScript and Tailwind CSS v4 website for the Dortmund building service business.
+Öffentlich bereitgestellte Unternehmenswebsite für einen Gebäudeservice aus Dortmund. Sie stellt die Leistungen und das Einsatzgebiet vor und ermöglicht die direkte Kontaktaufnahme für Angebotsanfragen.
 
-## Local development
+**[Live-Website ansehen](https://in-out-gebaeudeservice.netlify.app)** · [GitHub-Repository](https://github.com/Emre1924/in-out-gebaeudeservice)
+
+## Technologien
+
+- **Next.js 15** mit App Router und **React 19**
+- **TypeScript** mit aktivierter strikter Typprüfung
+- **Tailwind CSS v4** und ergänzende CSS-Regeln
+- **Phosphor Icons** für Bedienelemente
+- Lokal eingebundene Schriftarten über **Fontsource**
+- **WebGL** für den animierten Hero-Hintergrund
+- **ESLint**, **npm**, **GitHub** und **Netlify**
+
+## Funktionen
+
+- Responsive Darstellung, mobile Navigation und direkte Telefon- und E-Mail-Links.
+- Sechs Leistungen mit bildorientierter Übersicht und beim Build vorgerenderten Detailseiten.
+- Repräsentative KI-Bilder in der Leistungsübersicht; davon getrennte echte Einsatzfotos und Vorher-Nachher-Vergleiche auf ausgewählten Detailseiten.
+- Kontaktformular, das einen E-Mail-Entwurf in der Anwendung des Besuchers vorbereitet. Der Besucher versendet die Nachricht selbst; es gibt keinen serverseitigen Formularversand.
+- Bildauslieferung mit `next/image` und WebP-Dateien; separate optimierte Ableitungen der Unternehmensbilder.
+- Seitentitel, Beschreibungen, Canonical-URLs, Open-Graph-Metadaten, Sitemap, `robots.txt` und strukturierte Unternehmensdaten als JSON-LD.
+- Hero-Animation mit Unterstützung für `prefers-reduced-motion` und statischem Fallback bei fehlender WebGL-Unterstützung. Der Shader basiert auf dem Waves-Preset des 21st.dev Shader Builders.
+
+## Projektstruktur
+
+```text
+src/
+├── app/                  # Seiten, Layout, Metadaten und icon.png
+├── components/           # Gemeinsame UI, Kontaktformular und Shader
+└── lib/
+    ├── site.ts           # Unternehmensdaten und Leistungskatalog
+    └── service-work.ts   # Einsatzbilder und Vorher-Nachher-Zuordnung
+public/images/            # Logo, Hero und Leistungsbilder
+└── einsaetze/            # Authentische Projektfotos und Ableitungen
+netlify.toml              # Build- und Hosting-Konfiguration
+DESIGN.md                 # Visuelle Gestaltungsrichtlinien
+AGENTS.md                 # Hinweise zur Mitarbeit
+```
+
+Inhalte und Bildzuordnungen werden zentral in `src/lib/` gepflegt. Temporäre Dateien in `work/` und `outputs/` sind von Git ausgeschlossen.
+
+## Lokal installieren und entwickeln
+
+Voraussetzungen: **Node.js 24**, npm und Git.
 
 ```bash
+git clone https://github.com/Emre1924/in-out-gebaeudeservice.git
+cd in-out-gebaeudeservice
 npm ci
 npm run dev
 ```
 
-Run `npm run build`, `npm run typecheck`, and `npm run lint` before publishing. Development uses `.next-dev`; production uses `.next`.
+Der Entwicklungsserver startet standardmäßig unter `http://localhost:3000`. Entwicklungsdateien liegen in `.next-dev/`, Produktionsdateien in `.next/`.
 
-## GitHub repository
+Optional kann `.env.example` als `.env.local` kopiert werden. Ohne gesetzte `NEXT_PUBLIC_SITE_URL` verwendet das Projekt lokal `http://localhost:3000` als Basis für Metadaten. Die lokale `.env.local` bleibt außerhalb der Versionsverwaltung.
 
-The local repository uses `main`. Push the source code, lockfile, configuration, documentation and image assets. Keep `.env` files, dependencies, build output, logs and temporary files out of Git; `.env.example` is the public configuration template.
+## Build und Prüfungen
 
-Connect the actual GitHub repository as `origin` before the first push. Do not put a token or password in the remote URL. Source images remain intact in this repository; files under `public/` will also be publicly accessible when deployed.
+| Befehl | Zweck |
+| --- | --- |
+| `npm run build` | Produktionsbuild erstellen |
+| `npm run typecheck` | TypeScript mit `tsc --noEmit` prüfen |
+| `npm run lint` | ESLint mit Next.js- und TypeScript-Regeln ausführen |
+| `npm run start` | Den zuvor erstellten Produktionsbuild lokal starten |
 
-## Netlify deployment
+Vor der Veröffentlichung werden Build, Typprüfung und Lint ausgeführt. Ein separates automatisiertes Testframework ist derzeit nicht eingerichtet; responsive Darstellung, Navigation und Kontaktablauf werden ergänzend im Browser geprüft.
 
-The repository includes `netlify.toml`: Node.js 24, build command `npm run build`, publish directory `.next`. Use Netlify's automatic Next.js adapter; do not use a static export or upload the source directory as the published site. Install all build dependencies, including devDependencies.
+## Deployment mit GitHub und Netlify
 
-After Netlify assigns the temporary public URL, set **NEXT_PUBLIC_SITE_URL** in Netlify to that exact HTTPS origin, without a path or trailing slash. Apply it to the production build environment, then trigger a fresh production deploy. This controls canonical URLs, Open Graph image URLs, the sitemap, robots.txt and the business schema. The variable is public, not a secret. Local development falls back to `http://localhost:3000`; that fallback must not be used in the public deployment. No email/API credentials are currently required.
+Der Quellcode liegt auf GitHub, die öffentliche Website wird auf Netlify betrieben.
 
-When a custom domain is configured later, update the same variable and redeploy. Deploy previews should retain the production canonical origin.
+1. Änderungen lokal prüfen.
+2. Freigegebene Änderungen committen und nach `main` pushen.
+3. Bei aktivierter Git-Anbindung baut Netlify den Stand von `main` und veröffentlicht ihn nach erfolgreichem Deployment.
 
-## Before public launch
+`netlify.toml` legt **Node.js 24**, den Build-Befehl `npm run build` und das Ausgabeverzeichnis `.next` fest. Die Next.js-Unterstützung übernimmt [Netlifys Next.js-Adapter](https://docs.netlify.com/build/frameworks/framework-setup-guides/nextjs/overview/); das Projekt verwendet keinen statischen Export.
 
-- Confirm owner, address, phone, email and dispute resolution details. The Impressum has been finalized with the supplied wording; the Datenschutz page still contains a visible pre-launch hosting notice and needs review before publishing.
-- Complete the privacy policy for Netlify's actual hosting, connection logs, image delivery and any additional services.
-- Confirm permission to publish authentic work photographs and identifiable property details. Files under `public/`, including source images, are publicly accessible.
-- The contact form opens the visitor's email app; the visitor sends the email there. Verify the mailbox and call number. No server-side delivery is configured.
-- No favicon or dedicated social-share image is configured yet. Open Graph uses the approved homepage hero.
-- The remaining npm advisory concerns unpatched `braces` in development-only lint tooling. It is not imported by the website; lint only trusted repository patterns. Do not use `npm audit fix --force` to downgrade Next.js tooling.
+Für den Produktionsbuild wird in Netlify diese öffentliche Variable gesetzt:
 
-## Content and images
+```dotenv
+NEXT_PUBLIC_SITE_URL=https://in-out-gebaeudeservice.netlify.app
+```
 
-Business details, services and representative service-card images are centralized in `src/lib/site.ts`. Authentic work examples and before/after relationships are in `src/lib/service-work.ts`. Preserve source photos and use separate optimized derivatives. Representative images are not evidence of completed work or real employees.
+Sie bestimmt die Basis für Canonical-URLs, Open Graph, Sitemap und Unternehmensdaten. Bei einem Domainwechsel muss sie angepasst und ein neuer Build ausgelöst werden. Für das aktuelle Kontaktformular sind keine SMTP-Zugangsdaten oder API-Schlüssel erforderlich.
 
-The approved hero shader is confined to the hero and lower meta strip. Keep the normal white/off-white backgrounds below it.
+## Projektstatus
+
+Die Website ist öffentlich auf Netlify verfügbar. Impressum und Datenschutzerklärung sind implementiert; die Datenschutzerklärung berücksichtigt das Netlify-Hosting und den tatsächlichen Kontaktablauf. Das Favicon wurde aus dem authentischen Unternehmenslogo erstellt und über die App-Router-Konvention `src/app/icon.png` eingebunden.
